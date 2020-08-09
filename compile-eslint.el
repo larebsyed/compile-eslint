@@ -39,15 +39,16 @@
         (list (match-string 1))))))
 
 ;;;###autoload
-(let ((form `(eslint
+(defun eslint-compilation-mode-setup()
+  (let ((form `(eslint
               ,(rx-to-string
                 '(and (group (group (+ digit)) ":" (group (+ digit)))
                       (+ " ") (or "error" "warning")))
               compile-eslint--find-filename
               2 3 2 1)))
-  (if (assq 'eslint compilation-error-regexp-alist)
-      (setf (cdr (assq 'eslint compilation-error-regexp-alist)) (cdr form))
-    (push form compilation-error-regexp-alist)))
+  (if (assq 'eslint compilation-error-regexp-alist-alist)
+      (setf (cdr (assq 'eslint compilation-error-regexp-alist-alist)) (cdr form))
+    (push form compilation-error-regexp-alist-alist))))
 
 (provide 'compile-eslint)
 ;;; compile-eslint.el ends here
